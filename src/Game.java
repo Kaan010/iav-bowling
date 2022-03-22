@@ -24,11 +24,6 @@ public class Game {
         return rollArray[roll - 1];
     }
 
-    public int rollForLastRound(int pinsDown) {
-        rollArray[roll++] = pinsDown;
-        return pinsDown;
-    }
-
     public List<Integer> updateScoresOfGamePerFrame() {
         scoresByFrame.clear();
         int score = 0;

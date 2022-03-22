@@ -14,14 +14,14 @@ public class MyMain {
 
     private static void nonInteractiveGame() throws InterruptedException {
         Game bowlingGame = new Game();
-        int knockedPin = 0, roundCountPerFrame = 2 ,currentRoundNumber = 0;
-        List<Integer> scoreList=new ArrayList<>();
+        int knockedPin = 0, roundCountPerFrame = 2, currentRoundNumber = 0;
+        List<Integer> scoreList = new ArrayList<>();
 
         for (int i = 1; i <= totalFrameCount; i++) {
             System.out.println(i + "th frame ");
             for (int j = 1; j <= roundCountPerFrame; j++) {
                 System.out.print(j + "th shot -> ");
-                knockedPin = rollTheBall(bowlingGame,countOfPin);
+                knockedPin = rollTheBall(bowlingGame, countOfPin);
                 countOfPin -= knockedPin;
                 currentRoundNumber++;
                 scoreList = bowlingGame.updateScoresOfGamePerFrame();
