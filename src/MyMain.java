@@ -7,7 +7,6 @@ public class MyMain {
     private static final int totalFrameCount = 10;
     private static final Scanner myObj = new Scanner(System.in);
     private static int countOfPin = 10;
-    private static int roundNumber = 0;
 
     public static void main(String[] args) throws InterruptedException {
         nonInteractiveGame();
@@ -15,34 +14,37 @@ public class MyMain {
 
     private static void nonInteractiveGame() throws InterruptedException {
         Game bowlingGame = new Game();
-        int knockedPin = 0, roundCount = 2;
+        int knockedPin = 0, roundCountPerFrame = 2 ,currentRoundNumber = 0;
         List<Integer> scoreList=new ArrayList<>();
 
         for (int i = 1; i <= totalFrameCount; i++) {
             System.out.println(i + "th frame ");
-            for (int j = 1; j <= roundCount; j++) {
+            for (int j = 1; j <= roundCountPerFrame; j++) {
                 System.out.print(j + "th shot -> ");
-
                 knockedPin = rollTheBall(bowlingGame,countOfPin);
                 countOfPin -= knockedPin;
+                currentRoundNumber++;
                 scoreList = bowlingGame.updateScoresOfGamePerFrame();
-                roundNumber++;
-                if (bowlingGame.isStrike(roundNumber - 1))
-                    break;
+                if (bowlingGame.isStrike(currentRoundNumber - 1)) break;
             }
             countOfPin = 10;
-
-            if (i == 10) { //if last round, player has one more chance to roll
-                System.out.println("3th shot ->\nKnocked pin -> "
-                        + bowlingGame.rollManuel(Integer.parseInt(myObj.nextLine()), 10));
-                bowlingGame.updateScoresOfGamePerFrame();
-            }
-            for (int k = 0; k < i; k++)
-                System.out.print(scoreList.get(k) + " ,");
-            System.out.println("\n");
-
+            makeAnExtraRollForLastRound(bowlingGame, i); //if last round, player has one more chance to roll
+            printScoreUntilCurrentFrame(scoreList, i);
         }
+    }
 
+    private static void makeAnExtraRollForLastRound(Game bowlingGame, int i) {
+        if (i == 10) {
+            System.out.println("3th shot ->\nKnocked pin -> "
+                    + bowlingGame.rollManuel(Integer.parseInt(myObj.nextLine()), 10));
+            bowlingGame.updateScoresOfGamePerFrame();
+        }
+    }
+
+    private static void printScoreUntilCurrentFrame(List<Integer> scoreList, int frameNumber) {
+        for (int k = 0; k < frameNumber; k++)
+            System.out.print(scoreList.get(k) + " ,");
+        System.out.println("\n");
     }
 
     private static int rollTheBall(Game myGame, int countOfPin) {
