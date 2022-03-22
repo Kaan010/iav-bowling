@@ -9,10 +9,10 @@ public class MyMain {
     private static int countOfPin = 10;
 
     public static void main(String[] args) throws InterruptedException {
-        nonInteractiveGame();
+        interactiveGame();
     }
 
-    private static void nonInteractiveGame() throws InterruptedException {
+    private static void interactiveGame() throws InterruptedException {
         Game bowlingGame = new Game();
         int knockedPin = 0, roundCountPerFrame = 2, currentRoundNumber = 0;
         List<Integer> scoreList = new ArrayList<>();
